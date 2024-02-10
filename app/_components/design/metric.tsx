@@ -63,7 +63,7 @@ export function CardsMetric() {
             >
               <Tooltip
                 content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
+                  if (active && payload?.length) {
                     return (
                       <div className="rounded-lg border bg-background p-2 shadow-sm">
                         <div className="grid grid-cols-2 gap-2">
@@ -72,7 +72,7 @@ export function CardsMetric() {
                               Average
                             </span>
                             <span className="font-bold text-muted-foreground">
-                              {payload[0].value}
+                              {payload[0]?.value}
                             </span>
                           </div>
                           <div className="flex flex-col">
@@ -80,7 +80,7 @@ export function CardsMetric() {
                               Today
                             </span>
                             <span className="font-bold">
-                              {payload[1].value}
+                              {payload[1]?.value}
                             </span>
                           </div>
                         </div>
