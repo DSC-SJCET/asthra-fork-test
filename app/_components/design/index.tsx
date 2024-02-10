@@ -1,3 +1,4 @@
+import { Card } from "~/components/ui/card"
 import { CardsActivityGoal } from "./activity-goal"
 import { CardsCalendar } from "./calendar"
 import { CardsChat } from "./chat"
@@ -5,11 +6,14 @@ import { CardsCookieSettings } from "./cookie-settings"
 import { CardsCreateAccount } from "./create-account"
 import { CardsDataTable } from "./data-table"
 import { CardsMetric } from "./metric"
+import { NavigationMenuDemo } from "./nav-demo"
 import { CardsPaymentMethod } from "./payment-method"
 import { CardsReportIssue } from "./report-issue"
 import { CardsShare } from "./share"
 import { CardsStats } from "./stats"
 import { CardsTeamMembers } from "./team-members"
+import { Island } from "~/components/madeup/dynamic-island"
+import { AnimateBorder } from "~/components/madeup/anime-border"
 
 export default function CardsDemo() {
   return (
@@ -53,8 +57,14 @@ export default function CardsDemo() {
         <div className="hidden md:block">
           <CardsDataTable />
         </div>
+        <AnimateBorder>
+
         <CardsShare />
-        <div className="xl:hidden">
+        </AnimateBorder>
+        <Island shadow>
+          <NavigationMenuDemo />
+        </Island>
+        <div className="">
           <CardsReportIssue />
         </div>
       </div>

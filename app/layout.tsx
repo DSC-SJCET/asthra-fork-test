@@ -1,9 +1,11 @@
 import "~/styles/globals.css";
+import "cal-sans";
 
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "~/components/theme-provider"
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { Fog, GridContainer } from "~/components/madeup/grid-background";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,15 +25,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
-      <ThemeProvider
-      attribute="class"
-      defaultTheme="dark"
-      enableSystem
-      disableTransitionOnChange
-      >
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-      </ThemeProvider>
+      <body>
+        {/* <GridContainer> */}
+          {/* <Fog /> */}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            forcedTheme="dark"
+            disableTransitionOnChange
+          >
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+          </ThemeProvider>
+        {/* </GridContainer> */}
       </body>
     </html>
   );

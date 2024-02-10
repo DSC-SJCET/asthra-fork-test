@@ -54,7 +54,7 @@ export function CardsCreateAccount() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Create account</Button>
+        <Button pattern className="w-full">Create account</Button>
       </CardFooter>
     </Card>
   )
