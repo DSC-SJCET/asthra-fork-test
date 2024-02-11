@@ -17,25 +17,23 @@ export const postRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(z.object({ name: z.string().min(1), id:z.string().min(1) }))
+    .input(z.object({ name: z.string().min(1), id: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-
       await ctx.db.insert(events).values({
         name: input.name,
         createdById: ctx.session.user.id,
         department: ctx.session.user.department,
-        id: input.id
+        id: input.id,
       });
     }),
 
   register: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-
       await ctx.db.insert(userRegisteredEvent).values({
         userId: "eswrdcfvgasd",
-        eventId: "eswrdcfvgasd"
-      })
+        eventId: "eswrdcfvgasd",
+      });
     }),
 
   getLatest: publicProcedure.query(({ ctx }) => {

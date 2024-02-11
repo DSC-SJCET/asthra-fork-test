@@ -2,11 +2,12 @@ import "~/styles/globals.css";
 import "cal-sans";
 
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "~/components/theme-provider"
+import { ThemeProvider } from "~/components/theme-provider";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Fog, GridContainer } from "~/components/madeup/grid-background";
 import { Cursor } from "~/components/madeup/cursor";
+import { Toaster } from "~/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,16 +29,17 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {/* <GridContainer> */}
-          {/* <Fog /> */}
-          <Cursor/>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            forcedTheme="dark"
-            disableTransitionOnChange
-          >
-            <TRPCReactProvider>{children}</TRPCReactProvider>
-          </ThemeProvider>
+        {/* <Fog /> */}
+        <Cursor />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          forcedTheme="dark"
+          disableTransitionOnChange
+        >
+          <Toaster richColors={true} position="top-center" />
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+        </ThemeProvider>
         {/* </GridContainer> */}
       </body>
     </html>
