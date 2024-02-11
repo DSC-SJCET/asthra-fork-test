@@ -152,3 +152,12 @@ blockquote {
   height: calc(100% - 2 * var(--offset));
   width: calc(100% - 2 * var(--offset));
 }
+
+.cursor {
+  @apply bg-gradient-to-tr to-red-700 from-red-400 text-transparent  flex items-center justify-center rounded-full;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000;
+}

@@ -10,6 +10,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { env } from "~/env";
 import { db } from "~/server/db";
 import { createTable } from "~/server/db/schema";
+import type { roleEnum, departmentEnum, yearEnum } from "./db/enum";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -21,8 +22,13 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+
+      // these properties not yet added via session
+      role: (typeof roleEnum["enumValues"][number]);
+      department: (typeof departmentEnum["enumValues"][number]);
+      year: (typeof yearEnum["enumValues"][number]);
+      college: string 
+
     } & DefaultSession["user"];
   }
 
