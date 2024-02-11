@@ -1,6 +1,8 @@
-import { api } from "~/trpc/server";
-import { user_columns } from "./_components/columns";
-import { DataTable } from "~/components/task/components/data-table";
+import { api } from '~/trpc/server';
+
+import { DataTable } from '~/components/task/components/data-table';
+
+import { user_columns } from './_components/columns';
 
 const Dashboard = async () => {
   const users = await api.user.userList.query();

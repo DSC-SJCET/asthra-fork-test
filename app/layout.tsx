@@ -2,12 +2,12 @@ import "~/styles/globals.css";
 import "cal-sans";
 
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "~/components/theme-provider";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { Fog, GridContainer } from "~/components/madeup/grid-background";
-import { Cursor } from "~/components/madeup/cursor";
+
 import { Toaster } from "~/components/ui/sonner";
+import { Cursor } from "~/components/madeup/cursor";
+import { ThemeProvider } from "~/components/theme-provider";
 
 const inter = Inter({
   subsets: ["latin"],

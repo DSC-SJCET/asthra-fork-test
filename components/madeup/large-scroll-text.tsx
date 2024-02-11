@@ -1,17 +1,10 @@
 // import "./styles.css";
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useMotionValue,
-  useVelocity,
-  useAnimationFrame,
-  MotionValue,
-} from "framer-motion";
-import { wrap } from "framer-motion/dom";
-import { cn } from "~/lib/utils";
+import { useRef } from 'react';
+
+import { motion, MotionValue, useAnimationFrame, useMotionValue, useScroll, useSpring, useTransform, useVelocity } from 'framer-motion';
+import { wrap } from 'framer-motion/dom';
+
+import { cn } from '~/lib/utils';
 
 interface ParallaxProps {
   children: React.ReactNode;
@@ -19,11 +12,7 @@ interface ParallaxProps {
   baseVelocity: number;
 }
 
-export function ParallaxText({
-  children,
-  className,
-  baseVelocity = 100,
-}: ParallaxProps) {
+export function ParallaxText({ children, className, baseVelocity = 100 }: ParallaxProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -31,8 +20,7 @@ export function ParallaxText({
     damping: 50,
     stiffness: 400,
   });
-  const velocityFactor = useTransform(smoothVelocity as MotionValue<number>
-    , [0, 1000], [0, 5], {
+  const velocityFactor = useTransform(smoothVelocity as MotionValue<number>, [0, 1000], [0, 5], {
     clamp: false,
   });
 
@@ -55,17 +43,14 @@ export function ParallaxText({
 
   return (
     <div
-      className={cn(
-        "parallax flex text-7xl md:text-8xl lg:text-9xl",
-        className
-      )}
+      className={cn('parallax flex text-7xl md:text-8xl lg:text-9xl', className)}
       style={{
-            overflow: "hidden",
-            letterSpacing: "-2px",
-            margin: 0,
-            whiteSpace: "nowrap",
-            display: "flex",
-            flexWrap: "nowrap",
+        overflow: 'hidden',
+        letterSpacing: '-2px',
+        margin: 0,
+        whiteSpace: 'nowrap',
+        display: 'flex',
+        flexWrap: 'nowrap',
       }}
     >
       <motion.div className="scroller" style={{ x }}>

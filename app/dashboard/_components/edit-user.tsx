@@ -1,37 +1,18 @@
-"use client";
+'use client';
 
-import { allRoles } from "~/logic/roles";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "~/components/ui/dialog";
-import { Edit } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
-import { useState } from "react";
-import { Button } from "~/components/ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from 'react';
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { allRoles } from '~/logic/roles';
+import { Edit } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
+
+import { Button } from '~/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '~/components/ui/dialog';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '~/components/ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 
 type Props = {
   selected: string;
@@ -39,7 +20,7 @@ type Props = {
 
 const UserSchema = z.object({
   role: z.string({
-    required_error: "Please select a role.",
+    required_error: 'Please select a role.',
   }),
 });
 
@@ -53,18 +34,14 @@ export function EditUser({ selected }: Props) {
 
   function onSubmit(data: z.infer<typeof UserSchema>) {
     //impliment update logic here...
-    toast.success("Hello " + data.role);
+    toast.success('Hello ' + data.role);
   }
 
   const [editUser, setEditUser] = useState(false);
 
   return (
     <>
-      <Button
-        variant={"secondary"}
-        size={"icon"}
-        onClick={() => setEditUser(true)}
-      >
+      <Button variant={'secondary'} size={'icon'} onClick={() => setEditUser(true)}>
         <Edit className="h-3 w-3 text-primary" />
       </Button>
 
@@ -83,10 +60,7 @@ export function EditUser({ selected }: Props) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Role</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Assign a role, default to user.." />
@@ -105,9 +79,7 @@ export function EditUser({ selected }: Props) {
                           ))}
                       </SelectContent>
                     </Select>
-                    <FormDescription>
-                      You can manage roles assigned to each users..
-                    </FormDescription>
+                    <FormDescription>You can manage roles assigned to each users..</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
