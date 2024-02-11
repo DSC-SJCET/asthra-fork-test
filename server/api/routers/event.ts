@@ -23,7 +23,7 @@ export const postRouter = createTRPCRouter({
       await ctx.db.insert(events).values({
         name: input.name,
         createdById: ctx.session.user.id,
-        department: ctx.session.user.department,
+        department: ctx.session.user.department ?? "NA",
         id: input.id
       });
     }),

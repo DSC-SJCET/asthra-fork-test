@@ -14,17 +14,28 @@ import { CardsStats } from "./stats"
 import { CardsTeamMembers } from "./team-members"
 import { Island } from "~/components/madeup/dynamic-island"
 import { AnimateBorder } from "~/components/madeup/anime-border"
-<<<<<<< HEAD:app/_components/design/index.tsx
 import { BorderBeam } from "~/components/madeup/border-beam"
-=======
 import { DataTable } from "../task/components/data-table"
 import { columns } from "~/components/task/components/columns"
-import { data } from "../task/data/tasks"
->>>>>>> 5322a0d2e31d50dcdb69ebc0b4ed5c94b8732a77:components/design/index.tsx
+import { data } from "~/components/task/data/tasks"
+import { CursorContainer } from "~/components/madeup/cursor"
 
 export default function CardsDemo() {
   return (<>
-    <div className="max-w-screen-xl mx-auto my-20">
+    <div className="max-w-screen-xl mx-auto">
+      <div className="max-w-screen-lg mx-auto">
+      <Island shadow>
+        <NavigationMenuDemo />
+      </Island>
+      </div>
+      <div className="my-40 text-center">
+        <CursorContainer varient="text">
+          <h1>Simplest Cursor</h1>
+        </CursorContainer>
+        <CursorContainer varient="link">
+          <h1>Animator</h1>
+        </CursorContainer>
+      </div>
       <DataTable data={data} columns={columns} />
     </div>
     <div className="md:grids-col-2 grid md:gap-4 lg:grid-cols-10 xl:grid-cols-11 xl:gap-4">
@@ -62,27 +73,24 @@ export default function CardsDemo() {
           </div>
           <div className="pt-3 sm:col-span-2 xl:pt-3">
             <CardsMetric />
-		  </div>
-		  <div className="pt-3 sm:col-span-2 xl:pt-3">
-			<BorderBeam className="p-3">
-				<h1>Lorem ipsum dolor sit amet</h1>
-			</BorderBeam>
-		  </div>
+          </div>
+          <div className="pt-3 sm:col-span-2 xl:pt-3">
+            <BorderBeam className="p-3">
+              <h1>Lorem ipsum dolor sit amet</h1>
+            </BorderBeam>
+          </div>
         </div>
         <div className="hidden md:block">
           <CardsDataTable />
         </div>
         <AnimateBorder>
 
-        <CardsShare />
+          <CardsShare />
         </AnimateBorder>
-        <Island shadow>
-          <NavigationMenuDemo />
-        </Island>
         <div className="">
           <CardsReportIssue />
         </div>
       </div>
     </div>
-    </>)
+  </>)
 }
