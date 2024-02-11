@@ -29,3 +29,10 @@ export const endTimeEnum = pgEnum("endTime", [
   "NA",
   ...(Object.keys(endTime) as EndTime[]), // 2021, 2022, ...2027
 ]);
+
+export type ExtraData = {
+  role?: (typeof roleEnum)["enumValues"][number];
+  department?: (typeof departmentEnum)["enumValues"][number];
+  year?: (typeof yearEnum)["enumValues"][number];
+  college?: string;
+};
