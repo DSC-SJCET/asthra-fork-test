@@ -14,9 +14,13 @@ import { CardsStats } from "./stats"
 import { CardsTeamMembers } from "./team-members"
 import { Island } from "~/components/madeup/dynamic-island"
 import { AnimateBorder } from "~/components/madeup/anime-border"
+<<<<<<< HEAD:app/_components/design/index.tsx
+import { BorderBeam } from "~/components/madeup/border-beam"
+=======
 import { DataTable } from "../task/components/data-table"
 import { columns } from "~/components/task/components/columns"
 import { data } from "../task/data/tasks"
+>>>>>>> 5322a0d2e31d50dcdb69ebc0b4ed5c94b8732a77:components/design/index.tsx
 
 export default function CardsDemo() {
   return (<>
@@ -58,7 +62,12 @@ export default function CardsDemo() {
           </div>
           <div className="pt-3 sm:col-span-2 xl:pt-3">
             <CardsMetric />
-          </div>
+		  </div>
+		  <div className="pt-3 sm:col-span-2 xl:pt-3">
+			<BorderBeam className="p-3">
+				<h1>Lorem ipsum dolor sit amet</h1>
+			</BorderBeam>
+		  </div>
         </div>
         <div className="hidden md:block">
           <CardsDataTable />
