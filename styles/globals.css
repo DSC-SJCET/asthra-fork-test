@@ -152,3 +152,42 @@ blockquote {
   height: calc(100% - 2 * var(--offset));
   width: calc(100% - 2 * var(--offset));
 }
+
+@keyframes border-beam{
+	from{
+		offset-distance: 0%;
+	}
+
+	to{
+		offset-distance: 100%;
+	}
+}
+
+.border-beam{
+	--size: 250;
+	--duration: 12;
+	--anchor: 90;
+	--border-width: 1.5;
+	--color-from: #ffaa40;
+	--color-to: #9c40ff;
+	--delay: -9s;
+	mask-image: linear-gradient(transparent,transparent),linear-gradient(#fff,#fff);
+	mask-composite: intersect !important;
+	mask-clip: padding-box, border-box !important;
+	border: 1.5px solid transparent;
+	width: 100%;
+	height: 100%;
+	inset: 0;
+}
+
+.border-beam::after{
+	content: '';
+	background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
+	width: 250px;
+	aspect-ratio: 1/1;
+	position: absolute;
+	offset-position: left top;
+	offset-anchor: 90% 50%;
+	offset-path: rect(0 auto auto 0 round 250px);
+	animation: 12s infinite linear border-beam;
+}
