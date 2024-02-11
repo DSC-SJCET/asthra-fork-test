@@ -1,8 +1,7 @@
 import svgToDataUri from 'mini-svg-data-uri';
 import type { Config } from 'tailwindcss';
-import colors from 'tailwindcss/colors';
-// import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette"
-import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette';
+
+const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 
 const config = {
   darkMode: ['class'],
@@ -83,15 +82,17 @@ const config = {
 
 export default config;
 
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme('colors'));
-  let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
+//@ts-ignore
+function addVariablesForColors({ addBase, theme }) {
+  const allColors = flattenColorPalette(theme('colors'));
+  const newVars = Object.fromEntries(Object.entries(allColors as Object).map(([key, val]) => [`--${key}`, val]));
 
   addBase({
     ':root': newVars,
   });
 }
 
+//@ts-ignore
 function GridandDotBackgrounds({ matchUtilities, theme }) {
   matchUtilities(
     {

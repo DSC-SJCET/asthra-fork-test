@@ -1,11 +1,12 @@
 'use client';
 
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 
 import { motion, Variants } from 'framer-motion';
 import { MoveUpRight } from 'lucide-react';
 
-import { CursorController } from '~/lib/cursor-control';
+import { CursorController, CursorVarient } from '~/lib/cursor-control';
 
 export const Cursor = () => {
   const { varient: cursorVariant } = CursorController();
@@ -58,3 +59,13 @@ export const Cursor = () => {
     </motion.div>
   );
 };
+
+const CursorContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { varient: CursorVarient }>(
+  ({ varient, ...props }, ref) => {
+    const { setDefault, setVarient } = CursorController();
+    return <div ref={ref} onMouseEnter={() => setVarient(varient)} onMouseLeave={setDefault} {...props} />;
+  },
+);
+CursorContainer.displayName = 'CursorContainer';
+
+export { CursorContainer };
