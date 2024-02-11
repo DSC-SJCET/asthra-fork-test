@@ -10,42 +10,72 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
+import { departmentEnum, endTimeEnum, roleEnum, yearEnum } from "./enum";
+import { College, AsthraStartsAt } from "~/logic/roles";
+import { env } from "~/env";
 
 /**
+ * @example > users_production, events_production
+ * > users_test, events_test
+ * > users_development, events_development
+ * 
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
  * database instance for multiple projects.
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `astra_${name}`);
+export const createTable = pgTableCreator((name) => `${name}_${env.NODE_ENV}`);
 
-export const posts = createTable(
-  "post",
+export const userRegisteredEvent = createTable('userRegisteredEvent', {
+  userId: varchar('user_id', { length: 255 }).notNull().references(() => users.id),
+  eventId: varchar('eventId', { length: 255 }).notNull().references(() => events.id),
+});
+
+
+export const events = createTable(
+  "event",
   {
-    id: serial("id").primaryKey(),
+    id: varchar("id", { length: 255 }).notNull().primaryKey(),
     name: varchar("name", { length: 256 }),
-    createdById: varchar("createdById", { length: 255 })
-      .notNull()
-      .references(() => users.id),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
+    description: text("description"), // anything bla bla bla
+    poster: varchar("image", { length: 255 }),
+    banner: varchar("image", { length: 255 }),
+
+    createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
     updatedAt: timestamp("updatedAt"),
+
+    createdById: varchar("createdById", { length: 255 }).notNull().references(() => users.id),
+    department: departmentEnum('department').notNull().references(() => users.department),
+    
+    venue: text("venue"), // ROOM 303, BLOCK SPB, 2nd FLOOR
+    dateTimeStarts: timestamp("dateTimeStarts").notNull().default(AsthraStartsAt),
+    dateTimeEnd: endTimeEnum("endTime").default("ALL DAY"),
+
+    regCount: integer('int').default(0)
   },
   (example) => ({
     createdByIdIdx: index("createdById_idx").on(example.createdById),
     nameIndex: index("name_idx").on(example.name),
+    createdByDepartmentIdx: index("createdByDepartmentIdx").on(example.department),
   })
 );
 
 export const users = createTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull(),
+
   emailVerified: timestamp("emailVerified", {
     mode: "date",
   }).default(sql`CURRENT_TIMESTAMP`),
   image: varchar("image", { length: 255 }),
+  
+  role: roleEnum('role').default("USER"),
+  department: departmentEnum('department').default("NA"),
+  year: yearEnum('year').default("NA"),
+  
+  email: varchar("email", { length: 255 }).notNull(),
+  number: varchar("number", { length: 15 }),
+  college: varchar("college", { length: 255 },).$type<College>().default("NA"),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

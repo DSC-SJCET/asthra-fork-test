@@ -1,6 +1,6 @@
 'use client'
 
-import CardsDefault from "~/app/_components/design"
+import CardsDefault from "~/components/design"
 
 export default function Home() {
   return (

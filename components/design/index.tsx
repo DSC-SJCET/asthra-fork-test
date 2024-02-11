@@ -14,10 +14,19 @@ import { CardsStats } from "./stats"
 import { CardsTeamMembers } from "./team-members"
 import { Island } from "~/components/madeup/dynamic-island"
 import { AnimateBorder } from "~/components/madeup/anime-border"
+<<<<<<< HEAD:app/_components/design/index.tsx
 import { BorderBeam } from "~/components/madeup/border-beam"
+=======
+import { DataTable } from "../task/components/data-table"
+import { columns } from "~/components/task/components/columns"
+import { data } from "../task/data/tasks"
+>>>>>>> 5322a0d2e31d50dcdb69ebc0b4ed5c94b8732a77:components/design/index.tsx
 
 export default function CardsDemo() {
-  return (
+  return (<>
+    <div className="max-w-screen-xl mx-auto my-20">
+      <DataTable data={data} columns={columns} />
+    </div>
     <div className="md:grids-col-2 grid md:gap-4 lg:grid-cols-10 xl:grid-cols-11 xl:gap-4">
       <div className="space-y-4 lg:col-span-4 xl:col-span-6 xl:space-y-4">
         <CardsStats />
@@ -75,5 +84,5 @@ export default function CardsDemo() {
         </div>
       </div>
     </div>
-  )
+    </>)
 }

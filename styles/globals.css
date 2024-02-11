@@ -191,3 +191,11 @@ blockquote {
 	offset-path: rect(0 auto auto 0 round 250px);
 	animation: 12s infinite linear border-beam;
 }
+.cursor {
+  @apply bg-gradient-to-tr to-red-700 from-red-400 text-transparent  flex items-center justify-center rounded-full;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
