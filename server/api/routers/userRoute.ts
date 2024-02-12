@@ -2,7 +2,6 @@
 
 import { userdata } from "~/lib/data/users";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { env } from "~/env";
 
 export const userRouter = createTRPCRouter({
   userList: publicProcedure.query(async ({ ctx }) => {
