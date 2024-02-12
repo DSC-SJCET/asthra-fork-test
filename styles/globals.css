@@ -1,10 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,500;1,700&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,500;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 @layer base {
   /* :root {
@@ -29,7 +27,7 @@
     --ring: 240 5.9% 10%;
     --radius: 1rem;
   } */
-  
+
   :root {
     --radius: 1rem;
     --background: 240 10% 3.9%;
@@ -53,34 +51,34 @@
     --ring: 240 4.9% 83.9%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    font-family: "Cal Sans";
+    font-family: 'Cal Sans';
     @apply bg-background text-foreground;
   }
 }
 
 h1 {
-  @apply transition-all duration-700 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight;
+  @apply text-5xl font-extrabold tracking-tight transition-all duration-700 sm:text-6xl md:text-7xl lg:text-8xl;
 }
 
 h2 {
-  @apply transition-all duration-700 pb-2 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight first:mt-0;
+  @apply pb-2 text-3xl font-medium tracking-tight transition-all duration-700 first:mt-0 sm:text-5xl md:text-6xl lg:text-7xl;
 }
 h3 {
-  @apply transition-all duration-700 text-2xl sm:text-4xl text-zinc-500 font-semibold tracking-tight;
+  @apply text-2xl font-semibold tracking-tight text-zinc-500 transition-all duration-700 sm:text-4xl;
 }
 
 h4 {
-  @apply transition-all duration-700 text-xl font-semibold tracking-tight;
+  @apply text-xl font-semibold tracking-tight transition-all duration-700;
 }
 
 p {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   /* @apply ; */
 }
 
@@ -88,35 +86,32 @@ blockquote {
   @apply mt-6 border-l-2 pl-6 italic;
 }
 
-
 .island-background {
-	background: linear-gradient(-90deg, #007cf0, #00dfd8, #ff0080, #007cf0);
-	background-size: 400% 100%;
-	animation: backgroundAnimation 8s ease-in-out infinite
+  background: linear-gradient(-90deg, #007cf0, #00dfd8, #ff0080, #007cf0);
+  background-size: 400% 100%;
+  animation: backgroundAnimation 8s ease-in-out infinite;
 }
 
-
 @keyframes backgroundAnimation {
-	50% {
-		background-position: 140% 50%;
-		transform: skew(-2deg)
-	}
+  50% {
+    background-position: 140% 50%;
+    transform: skew(-2deg);
+  }
 }
 
 .island-background:after {
-	content: "";
-	position: absolute;
-	background-size: inherit;
-	background-image: inherit;
-	-webkit-animation: inherit;
-	animation: inherit;
-	left: 0;
-	right: 0;
-	top: 0px;
-	height: 100%;
-	filter: blur(.5rem)
+  content: '';
+  position: absolute;
+  background-size: inherit;
+  background-image: inherit;
+  -webkit-animation: inherit;
+  animation: inherit;
+  left: 0;
+  right: 0;
+  top: 0px;
+  height: 100%;
+  filter: blur(0.5rem);
 }
-
 
 .animate-border {
   --offset: 3px;
@@ -130,7 +125,7 @@ blockquote {
 }
 
 /* Conic gradient */
-.animate-border::before { 
+.animate-border::before {
   content: '';
   background: conic-gradient(transparent 270deg, white, transparent);
   position: absolute;
@@ -153,37 +148,37 @@ blockquote {
   width: calc(100% - 2 * var(--offset));
 }
 
-@keyframes border-beam{
-	from{
-		offset-distance: 0%;
-	}
+@keyframes border-beam {
+  from {
+    offset-distance: 0%;
+  }
 
-	to{
-		offset-distance: 100%;
-	}
+  to {
+    offset-distance: 100%;
+  }
 }
 
-.border-beam{
-	--size: 250;
-	--duration: 12;
-	--anchor: 90;
-	--border-width: 1.5;
-	--color-from: #ffaa40;
-	--color-to: #9c40ff;
-	--delay: -9s;
-	mask-image: linear-gradient(transparent,transparent),linear-gradient(#fff,#fff);
-	mask-composite: intersect !important;
-	mask-clip: padding-box, border-box !important;
-	border: 1.5px solid transparent;
-	width: 100%;
-	height: 100%;
-	inset: 0;
+.border-beam {
+  --size: 250;
+  --duration: 12;
+  --anchor: 90;
+  --border-width: 1.5;
+  --color-from: #ffaa40;
+  --color-to: #9c40ff;
+  --delay: -9s;
+  mask-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+  mask-composite: intersect !important;
+  mask-clip: padding-box, border-box !important;
+  border: 1.5px solid transparent;
+  width: 100%;
+  height: 100%;
+  inset: 0;
 }
 
 .border-beam::after{
 	content: '';
 	background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
-	width: 250px;
+	width: 150px;
 	aspect-ratio: 1/1;
 	position: absolute;
 	offset-position: left top;
@@ -192,7 +187,7 @@ blockquote {
 	animation: 12s infinite linear border-beam;
 }
 .cursor {
-  @apply bg-gradient-to-tr to-red-700 from-red-400 text-transparent  flex items-center justify-center rounded-full;
+  @apply flex items-center justify-center rounded-full  bg-gradient-to-tr from-red-400 to-red-700 text-transparent;
   position: fixed;
   top: 0;
   left: 0;

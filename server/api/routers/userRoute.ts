@@ -15,7 +15,7 @@ export const userRouter = createTRPCRouter({
       }
       return userListData;
     } catch (error) {
-      throw new Error("Error fetching users");
+      throw new Error('Error fetching users');
     }
   }),
 });

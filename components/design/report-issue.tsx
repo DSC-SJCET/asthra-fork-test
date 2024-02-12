@@ -1,37 +1,22 @@
-"use client"
+'use client';
 
-import * as React from "react"
+import * as React from 'react';
 
-import { Button } from "~/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
-import { Input } from "~/components/ui/input"
-import { Label } from "~/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select"
-import { Textarea } from "~/components/ui/textarea"
+import { Button } from '~/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
+import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
+import { Textarea } from '~/components/ui/textarea';
 
 export function CardsReportIssue() {
-  const id = React.useId()
+  const id = React.useId();
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Report an issue</CardTitle>
-        <CardDescription>
-          What area are you having problems with?
-        </CardDescription>
+        <CardDescription>What area are you having problems with?</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
         <div className="grid gap-4 sm:grid-cols-2">
@@ -53,11 +38,7 @@ export function CardsReportIssue() {
           <div className="grid gap-2">
             <Label htmlFor={`security-level-${id}`}>Security Level</Label>
             <Select defaultValue="2">
-              <SelectTrigger
-                id={`security-level-${id}`}
-                className="line-clamp-1 w-full truncate"
-                aria-label="Security Level"
-              >
+              <SelectTrigger id={`security-level-${id}`} className="line-clamp-1 w-full truncate" aria-label="Security Level">
                 <SelectValue placeholder="Select level" />
               </SelectTrigger>
               <SelectContent>
@@ -75,10 +56,7 @@ export function CardsReportIssue() {
         </div>
         <div className="grid gap-2">
           <Label htmlFor={`description-${id}`}>Description</Label>
-          <Textarea
-            id={`description-${id}`}
-            placeholder="Please include all information relevant to your issue."
-          />
+          <Textarea id={`description-${id}`} placeholder="Please include all information relevant to your issue." />
         </div>
       </CardContent>
       <CardFooter className="justify-between space-x-2">
@@ -86,5 +64,5 @@ export function CardsReportIssue() {
         <Button>Submit</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
