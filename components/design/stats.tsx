@@ -1,11 +1,6 @@
-import { Bar, BarChart, Line, LineChart, ResponsiveContainer } from "recharts"
+import { Bar, BarChart, Line, LineChart, ResponsiveContainer } from 'recharts';
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 
 const data = [
   {
@@ -40,10 +35,9 @@ const data = [
     revenue: 26475,
     subscription: 189,
   },
-]
+];
 
 export function CardsStats() {
-
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
       <Card>
@@ -52,9 +46,7 @@ export function CardsStats() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">$15,231.89</div>
-          <p className="text-xs text-muted-foreground">
-            +20.1% from last month
-          </p>
+          <p className="text-xs text-muted-foreground">+20.1% from last month</p>
           <div className="h-[80px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -72,11 +64,11 @@ export function CardsStats() {
                   dataKey="revenue"
                   activeDot={{
                     r: 6,
-                    style: { fill: "var(--theme-primary)", opacity: 0.25 },
+                    style: { fill: 'var(--theme-primary)', opacity: 0.25 },
                   }}
                   style={
                     {
-                      stroke: "var(--theme-primary)",
+                      stroke: 'var(--theme-primary)',
                     } as React.CSSProperties
                   }
                 />
@@ -91,9 +83,7 @@ export function CardsStats() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">+2350</div>
-          <p className="text-xs text-muted-foreground">
-            +180.1% from last month
-          </p>
+          <p className="text-xs text-muted-foreground">+180.1% from last month</p>
           <div className="mt-4 h-[80px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
@@ -101,7 +91,7 @@ export function CardsStats() {
                   dataKey="subscription"
                   style={
                     {
-                      fill: "var(--theme-primary)",
+                      fill: 'var(--theme-primary)',
                       opacity: 1,
                     } as React.CSSProperties
                   }
@@ -112,5 +102,5 @@ export function CardsStats() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
