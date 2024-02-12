@@ -183,7 +183,7 @@ blockquote {
 .border-beam::after{
 	content: '';
 	background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
-	width: 250px;
+	width: 150px;
 	aspect-ratio: 1/1;
 	position: absolute;
 	offset-position: left top;
