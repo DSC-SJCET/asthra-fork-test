@@ -1,30 +1,16 @@
-import { relations, sql, InferSelectModel } from "drizzle-orm";
+import { relations, sql, type InferSelectModel } from "drizzle-orm";
 import {
   index,
   integer,
-  pgTableCreator,
+  pgTable as createTable,
   primaryKey,
-  serial,
   text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 import { departmentEnum, endTimeEnum, roleEnum, yearEnum } from "./enum";
-import { College, AsthraStartsAt } from "~/logic/roles";
-import { env } from "~/env";
-
-/**
- * @example > users_production, events_production
- * > users_test, events_test
- * > users_development, events_development
- *
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
-export const createTable = pgTableCreator((name) => `${name}_${env.NODE_ENV}`);
+import { type College, AsthraStartsAt } from "~/logic/roles";
 
 export const userRegisteredEvent = createTable("userRegisteredEvent", {
   userId: varchar("user_id", { length: 255 })

@@ -8,6 +8,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { Fog, GridContainer } from "~/components/madeup/grid-background";
 import { Cursor } from "~/components/madeup/cursor";
 import { Toaster } from "~/components/ui/sonner";
+import { Toast } from "~/components/ui/toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
         {/* <GridContainer> */}
         {/* <Fog /> */}
         <Cursor />
+        <Toast />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

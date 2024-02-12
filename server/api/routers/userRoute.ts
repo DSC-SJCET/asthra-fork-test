@@ -2,13 +2,13 @@
 
 import { userdata } from "~/lib/data/users";
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { env } from "~/env";
 
 export const userRouter = createTRPCRouter({
   userList: publicProcedure.query(async ({ ctx }) => {
-    const env = process.env.NODE_ENV;
     try {
       let userListData;
-      if (env === "development") {
+      if (env.NODE_ENV === "development") {
         userListData = userdata;
       } else {
         userListData = await ctx.db.query.users.findMany();

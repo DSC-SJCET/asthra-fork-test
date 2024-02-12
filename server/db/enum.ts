@@ -1,10 +1,9 @@
 import { pgEnum } from "drizzle-orm/pg-core";
 import {
-  AllDepartments,
-  AllRoles,
-  AllYears,
-  AsthraStartsAt,
-  EndTime,
+  type AllDepartments,
+  type AllRoles,
+  type AllYears,
+  type EndTime,
   allDepartments,
   allRoles,
   allYears,
