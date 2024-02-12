@@ -1,5 +1,5 @@
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
-import { events, users, userRegisteredEvent, cartCheckOut } from "~/server/db/schema";
+import { events, users, userRegisteredEvent, cartCheckOut, userCart } from "~/server/db/schema";
 
 
 export const eventZod = createSelectSchema(events);
@@ -20,3 +20,4 @@ export const userAccessZod = userZod.omit({
 })
 export const userRegisteredEventZod = createSelectSchema(userRegisteredEvent);
 export const cartCheckOutZod = createSelectSchema(cartCheckOut);
+export const userCartZod = createSelectSchema(userCart);

@@ -77,3 +77,10 @@ export type College = 'SJCET' | 'NA' | string;
  * || Certificate
  * || Stickers & Goodies
  * */
+
+/**
+ * eventIds: id|id|id|id|id|...|id
+ * split("|")
+ * example:
+ *    erdfsghdjfkmldf|fsvghdjsnkmd|sghdfanmsdf|fgvhfjnkfdbsjnd|ghbjndfmgsdfhjs|gvhjbdnfsdf|gvshbjdfnmdf
+ */

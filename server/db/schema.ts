@@ -5,18 +5,18 @@ import {
 	pgTable as createTable,
 	primaryKey,
 	text,
-  pgEnum,
+	pgEnum,
 	timestamp,
 	varchar,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 import {
-  type College,
+	type College,
 	type AllDepartments,
 	type AllRoles,
 	type AllYears,
 	type EndTime,
-  AsthraStartsAt,
+	AsthraStartsAt,
 	allDepartments,
 	allRoles,
 	allYears,
@@ -42,9 +42,21 @@ export const endTimeEnum = pgEnum("endTime", [
 	...(Object.keys(endTime) as EndTime[]), // 2021, 2022, ...2027
 ]);
 
-export const statusEnum = pgEnum("status", ["cart", "initiated", "success", "failed"]);
-export const eventStatusEnum = pgEnum("eventStatusEnum", ["uploaded", "approved", "cancel"]);
-
+export const statusEnum = pgEnum("status", [
+	"cart",
+	"initiated",
+	"success",
+	"failed",
+]);
+export const eventStatusEnum = pgEnum("eventStatusEnum", [
+	"uploaded",
+	"approved",
+	"cancel",
+]);
+export const attendeeStatusEnum = pgEnum("attendeeStatusEnum", [
+	"registered", // registered but not attended
+	"attended",
+]);
 
 export const cartCheckOut = createTable("cartCheckOut", {
 	transactionId: varchar("transactionId", { length: 255 }).primaryKey(),
@@ -52,8 +64,8 @@ export const cartCheckOut = createTable("cartCheckOut", {
 	userId: varchar("userId", { length: 255 })
 		.notNull()
 		.references(() => users.id),
-	events: text("events"),
-	eventNames: text("eventNames"),
+	eventIds: text("events").notNull(), // id|id|id|id|id|...|id
+	eventNames: text("eventNames").notNull(),
 	status: statusEnum("status").default("cart"),
 	remark: text("remark"),
 
@@ -63,17 +75,31 @@ export const cartCheckOut = createTable("cartCheckOut", {
 });
 
 export const userRegisteredEvent = createTable("userRegisteredEvent", {
-	amount: integer("amount").default(0),
 	userId: varchar("userId", { length: 255 })
 		.notNull()
 		.references(() => users.id),
 	eventId: varchar("eventId", { length: 255 })
 		.notNull()
 		.references(() => events.id),
-	remark: varchar("remark", { length: 256 }),
+	transactionId: varchar("transactionId", { length: 255 }).references(
+		() => cartCheckOut.transactionId,
+	),
+	remark: text("remark"),
+	status: attendeeStatusEnum("status").default("registered"),
 });
 
-
+export const userCart = createTable(
+	"userCart",
+	{
+		userId: varchar("userId", { length: 255 })
+			.notNull()
+			.references(() => users.id),
+		eventId: varchar("eventId", { length: 255 })
+			.notNull()
+			.references(() => events.id),
+	},
+	(t) => ({ pk: primaryKey(t.userId, t.eventId) }),
+);
 
 export const events = createTable(
 	"event",
@@ -83,10 +109,9 @@ export const events = createTable(
 		description: text("description"), // anything bla bla bla
 		poster: varchar("poster", { length: 255 }),
 		banner: varchar("banner", { length: 255 }),
+		certificate: varchar("certificate", { length: 255 }),
 
-		createdAt: timestamp("createdAt")
-			.default(sql`CURRENT_TIMESTAMP`)
-			.notNull(),
+		createdAt: timestamp("createdAt").default(sql`CURRENT_TIMESTAMP`).notNull(),
 		updatedAt: timestamp("updatedAt"),
 
 		createdById: varchar("createdById", { length: 255 })
@@ -99,17 +124,15 @@ export const events = createTable(
 			.notNull()
 			.default(AsthraStartsAt),
 		dateTimeEnd: endTimeEnum("dateTimeEnd").default("ALL DAY"),
-    eventStatus: eventStatusEnum("eventStatus").default("uploaded"),
+		eventStatus: eventStatusEnum("eventStatus").default("uploaded"),
 
 		regCount: integer("regCount").default(0),
 	},
-	(example) => ({
-		createdByIdIdx: index("createdByIdIdx").on(example.createdById),
-		nameIndex: index("nameIndex").on(example.name),
-	}),
+	// (example) => ({
+	// 	createdByIdIdx: index("createdByIdIdx").on(example.createdById),
+	// 	nameIndex: index("nameIndex").on(example.name),
+	// }),
 );
-
-
 
 export const users = createTable("users", {
 	id: varchar("id", { length: 255 }).notNull().primaryKey(),
