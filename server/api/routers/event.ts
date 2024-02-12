@@ -1,15 +1,40 @@
 import { z } from 'zod';
+import { eventAccessZod, eventZod } from '~/lib/validator';
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '~/server/api/trpc';
 import { events, userRegisteredEvent } from '~/server/db/schema';
+import { v4 as uuidv4 } from 'uuid';
 
-export const postRouter = createTRPCRouter({
-  create: protectedProcedure.input(z.object({ name: z.string().min(1), id: z.string().min(1) })).mutation(async ({ ctx, input }) => {
+
+
+export const eventRouter = createTRPCRouter({
+  create: protectedProcedure
+  .input(eventAccessZod.optional())
+  .mutation(async ({ ctx, input }) => {
     await ctx.db.insert(events).values({
-      name: input.name,
-      createdById: ctx.session.user.id,
       department: ctx.session.user.department ?? 'NA',
-      id: input.id,
+      createdById: ctx.session.user.id,
+      ...input,
+      id: uuidv4(),
+    });
+  }),
+
+  updateEvent: protectedProcedure
+  .input(eventAccessZod)
+  .mutation(async ({ ctx, input }) => {
+    await ctx.db.update(events).set({
+      ...input
+    });
+  }),
+
+  uploadImage: protectedProcedure
+  .input(eventZod.pick({
+    banner:true,
+    poster:true
+  }))
+  .mutation(async ({ ctx, input }) => {    
+    await ctx.db.update(events).set({
+      ...input
     });
   }),
 
