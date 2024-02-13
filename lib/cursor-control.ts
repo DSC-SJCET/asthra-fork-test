@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type CursorVarient = 'default' | 'link' | 'text';
+export type CursorVarient = 'default' | 'link' | 'text' | "hide";
 export type CursorType = {
   varient: CursorVarient;
   setVarient: (varient: CursorVarient) => void;
