@@ -1,4 +1,4 @@
-import { AllDepartments, AllYears, College } from './roles';
+import { AllDepartments, AllYears, College } from '.';
 
 const regex = /^([a-zA-Z]+)([0-9]{4})@([a-zA-Z]+)\.sjcetpalai\.ac\.in$/;
 

@@ -184,16 +184,16 @@ blockquote {
   inset: 0;
 }
 
-.border-beam::after {
-  content: '';
-  background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
-  width: 250px;
-  aspect-ratio: 1/1;
-  position: absolute;
-  offset-position: left top;
-  offset-anchor: 90% 50%;
-  offset-path: rect(0 auto auto 0 round 250px);
-  animation: 12s infinite linear border-beam;
+.border-beam::after{
+	content: '';
+	background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
+	width: 150px;
+	aspect-ratio: 1/1;
+	position: absolute;
+	offset-position: left top;
+	offset-anchor: 90% 50%;
+	offset-path: rect(0 auto auto 0 round 250px);
+	animation: 12s infinite linear border-beam;
 }
 
 .cursor {
