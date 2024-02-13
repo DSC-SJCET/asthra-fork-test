@@ -20,4 +20,13 @@ const Separator = React.forwardRef<
 ));
 Separator.displayName = SeparatorPrimitive.Root.displayName;
 
-export { Separator };
+
+
+const Space40:React.FC = () => {
+  return ( <div className="text-center pt-20 pb-5  md:pt-40 md:pb-10"/> );
+}
+const Space10:React.FC = () => {
+  return ( <div className="text-center pt-5 md:pt-10"/> );
+}
+
+export { Separator, Space40, Space10 };
