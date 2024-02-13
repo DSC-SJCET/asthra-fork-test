@@ -1,7 +1,9 @@
-import { postRouter } from '~/server/api/routers/event';
+import { eventRouter } from '~/server/api/routers/event';
 import { createTRPCRouter } from '~/server/api/trpc';
 
 import { userRouter } from './routers/userRoute';
+import { transactionRouter } from './routers/transaction';
+import { cartRouter } from './routers/cart';
 
 /**
  * This is the primary router for your server.
@@ -10,7 +12,9 @@ import { userRouter } from './routers/userRoute';
  */
 export const appRouter = createTRPCRouter({
   user: userRouter, // put procedures under "user" namespace
-  post: postRouter,
+  event: eventRouter,
+  transaction: transactionRouter,
+  cart: cartRouter,
 });
 
 // export type definition of API

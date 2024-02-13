@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { allRoles } from '~/logic/roles';
+import { allRoles } from '~/logic';
 import { Edit } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
