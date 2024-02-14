@@ -1,8 +1,14 @@
 "use client"
 import { ParallaxText } from "~/components/madeup/text-parallax";
-import { Space40 } from "~/components/ui/separator";
 
-export function AstraParallax() {
+interface ParallaxTextProps {
+    1: string
+    2: string
+    3: string
+    4: string
+}
+
+export const AstraParallax:React.FC<ParallaxTextProps> =  (props) => {
     const sliderText =
         "text-transparent duration-1000 bg-gradient-to-tr cursor-default text-edge-outline whitespace-nowrap bg-clip-text";
 
@@ -10,28 +16,15 @@ export function AstraParallax() {
         <div className="my-40 overflow-hidden">
             <ParallaxText baseVelocity={2}>
                 <span className={`${sliderText} to-blue-600 from-teal-300`}>
-                    ASTHRA
+                {props["1"]}
                 </span>
-                24
+                {props["2"]}
             </ParallaxText>
             <ParallaxText baseVelocity={-3}>
                 <span className={`${sliderText} to-orange-600 from-yellow-400`}>
-                    SJCET
+                {props["3"]}
                 </span>
-                PALAI
-            </ParallaxText>
-            <Space40/>
-            <ParallaxText baseVelocity={2}>
-                <span className={`${sliderText} to-blue-600 from-teal-300`}>
-                    ASTHRA
-                </span>
-                24
-            </ParallaxText>
-            <ParallaxText baseVelocity={-3}>
-                <span className={`${sliderText} to-orange-600 from-yellow-400`}>
-                    SJCET
-                </span>
-                PALAI
+                {props["4"]}
             </ParallaxText>
         </div>
     )

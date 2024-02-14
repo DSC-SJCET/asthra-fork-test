@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "~/lib/utils";
 import { motion, ForwardRefComponent, HTMLMotionProps } from "framer-motion";
 import React, { FC, HTMLAttributes } from "react";
@@ -71,7 +73,7 @@ export const AnimateFadeIn: React.FC<{ type: HTMLTextTags, children: string, cla
                     const x = Array.from(word)
                     return (<span className="flex" key={(i)}>
                         {x.map((letter, i) => (
-                            <Slot variants={child} key={(i)}>
+                            <Slot className="cal" variants={child} key={(i)}>
                                 {letter === " " ? "\u00A0" : letter}
                             </Slot>
                         ))}
