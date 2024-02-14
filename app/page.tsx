@@ -28,7 +28,7 @@ export default function Home() {
         <CursorContainer varient="text">
           <div className="mx-auto py-20 h-screen w-screen relative flex justify-center overflow-hidden">
             <Fog />
-            <h1 className="mt-10 text-6xl  xl:text-xx text-center">ASTHRA 8.0</h1>
+            <h1 className="mt-10 text-6xl  xl:text-xx text-center -z-10">ASTHRA 8.0</h1>
             <div className="flex flex-col xl:flex-row justify-between items-center max-w-screen-lg mx-auto absolute top-10">
               <p className="w-[300px]">NATIONAL LEVEL TECHNICAL FEST 2024</p>
               <p>ST JOSEPHS COLLEGE OF ENGINEERING</p>

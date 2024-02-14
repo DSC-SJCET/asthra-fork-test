@@ -11,40 +11,47 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 const ThreeScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mixer = useRef<THREE.AnimationMixer>();
+  const camera = useRef<THREE.PerspectiveCamera>();
+  const renderer = useRef<THREE.WebGLRenderer>();
+  const ambientLight = useRef<THREE.AmbientLight>();
+  const light1 = useRef<THREE.PointLight>();
+  const light2 = useRef<THREE.PointLight>();
+  const light3 = useRef<THREE.DirectionalLight>();
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(95, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    containerRef.current.appendChild(renderer.domElement);
+    camera.current = new THREE.PerspectiveCamera(95, window.innerWidth / window.innerHeight, 0.1, 1000);
+    renderer.current = new THREE.WebGLRenderer({ alpha: true });
+    renderer.current.setClearColor(0x000000, 0);
+    renderer.current.setSize(window.innerWidth, window.innerHeight);
+    containerRef.current.appendChild(renderer.current.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    ambientLight.current = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight.current);
 
-    const light1 = new THREE.PointLight(0xffffff, 0.1);
-    light1.position.set(2.5, 5.5, 2.5);
-    scene.add(light1);
+    light1.current = new THREE.PointLight(0xffffff, 0.1);
+    light1.current.position.set(2.5, 5.5, 2.5);
+    scene.add(light1.current);
 
-    const light2 = new THREE.PointLight(0xffffff, 0.1);
-    light2.position.set(2.5, 2.5, -2.5);
-    scene.add(light2);
+    light2.current = new THREE.PointLight(0xffffff, 0.1);
+    light2.current.position.set(2.5, 2.5, -2.5);
+    scene.add(light2.current);
 
-    const light3 = new THREE.DirectionalLight(0xffffff, 10);
-    light3.position.set(-2.5, 10.5, 2);
-    scene.add(light3);
+    light3.current = new THREE.DirectionalLight(0xffffff, 10);
+    light3.current.position.set(-2.5, 10.5, 2);
+    scene.add(light3.current);
 
     const gltfloader = new GLTFLoader();
 
     gltfloader.load(
       '/model3.glb',
       (gltf) => {
-        gltf.scene.scale.set(5, 5, 5);
+        gltf.scene.scale.set(10, 10, 2);
         scene.add(gltf.scene);
 
-        camera.position.set(0, 4, 1);
+        camera.current.position.set(0, 16.5, 1);
 
         mixer.current = new THREE.AnimationMixer(gltf.scene);
         gltf.animations.forEach((clip) => {
@@ -57,20 +64,37 @@ const ThreeScene: React.FC = () => {
       },
     );
 
+    const handleScroll = () => {
+      // Calculate scroll progress
+      const maxScroll = document.body.clientHeight - window.innerHeight;
+      const currentScroll = window.scrollY;
+      const scrollProgress = currentScroll / maxScroll;
+
+      // Adjust camera position based on scroll progress
+      if (camera.current) {
+        camera.current.position.z = 1 + scrollProgress * 7; // Zoom out gradually
+        camera.current.position.y = 16.5 - scrollProgress * 5; // Move up gradually
+        // camera.current.rotation.y = -Math.PI / 2 + scrollProgress * Math.PI / 4; // Rotate left gradually
+      }
+    };
+
     const animate = () => {
       requestAnimationFrame(animate);
       if (mixer.current) mixer.current.update(0.01);
-      renderer.render(scene, camera);
+      if (renderer.current && scene && camera.current) renderer.current.render(scene, camera.current);
     };
 
     animate();
 
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
-      containerRef.current?.removeChild(renderer.domElement);
+      window.removeEventListener('scroll', handleScroll);
+      containerRef.current?.removeChild(renderer.current.domElement);
     };
   }, []);
 
-  return (<div className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1]" ref={containerRef}></div>);
+  return <div className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1]" ref={containerRef}></div>;
 };
 
 export default ThreeScene;
