@@ -19,6 +19,7 @@ import { DataTable } from "../task/components/data-table"
 import { columns } from "~/components/task/components/columns"
 import { data } from "~/components/task/data/tasks"
 import { CursorContainer } from "~/components/madeup/cursor"
+import { AnimateFadeUp } from "../madeup/fade-up"
 
 export default function CardsDemo() {
   return (<>
@@ -28,14 +29,17 @@ export default function CardsDemo() {
         <NavigationMenuDemo />
       </Island>
       </div>
+          <AnimateFadeUp>
       <div className="my-40 text-center">
         <CursorContainer varient="text">
-          <h1>Simplest Cursor</h1>
+          <h2 className="!text-9xl">Simplest Cursor</h2>
         </CursorContainer>
         <CursorContainer varient="link">
-          <h1>Animator</h1>
+          <h2 className="!text-9xl">Animator</h2>
+
         </CursorContainer>
       </div>
+          </AnimateFadeUp>
       <DataTable data={data} columns={columns} />
     </div>
     <div className="md:grids-col-2 grid md:gap-4 lg:grid-cols-10 xl:grid-cols-11 xl:gap-4">
