@@ -1,14 +1,25 @@
 // 'use server';
 
 import React from 'react';
+// import Use100vhScroll from '~/components/madeup/scroll-page-size';
+// import ScrollVideo from '~/components/madeup/scroll-video';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
+
+import { Loader } from 'lucide-react';
 
 import { CursorContainer } from '~/components/madeup/cursor';
 import { Fog } from '~/components/madeup/grid-background';
 import { IntroTag, IntroTagContainer } from '~/components/madeup/tag';
-// import Use100vhScroll from '~/components/madeup/scroll-page-size';
-// import ScrollVideo from '~/components/madeup/scroll-video';
-import ThreeScene from '~/components/madeup/ThreeScene';
+
+const Three = dynamic(() => import('~/components/madeup/ThreeScene'), {
+  loading: () => (
+    <p className="h-screen absolute inset-0 flex items-center justify-center bg-black/40">
+      <Loader className="w-10 h-10 animate-spin" />
+    </p>
+  ),
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -16,7 +27,7 @@ export default function Home() {
       {/* <Use100vhScroll> */}
       <>
         {/* <ScrollVideo src="/vedio.mp4" /> */}
-        <ThreeScene />
+        <Three />
         <Image
           className="object-contain fixed top-0 xl:top-10 left-5 xl:left-10 w-20 h-20"
           src="/logo.png"

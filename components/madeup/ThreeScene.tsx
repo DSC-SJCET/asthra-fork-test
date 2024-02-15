@@ -23,8 +23,9 @@ const ThreeScene: React.FC = () => {
     if (!containerRef.current) return;
 
     const scene = new THREE.Scene();
-    camera.current = new THREE.PerspectiveCamera(95, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.current = new THREE.PerspectiveCamera(95, window.innerWidth / window.innerHeight, 0.2, 1000);
     renderer.current = new THREE.WebGLRenderer({ alpha: true });
+    2;
     renderer.current.setClearColor(0x000000, 0);
     renderer.current.setSize(window.innerWidth, window.innerHeight);
     containerRef.current.appendChild(renderer.current.domElement);
@@ -47,12 +48,14 @@ const ThreeScene: React.FC = () => {
     const gltfloader = new GLTFLoader();
 
     gltfloader.load(
-      '/model3.glb',
+      '/model1.glb',
       (gltf) => {
         gltf.scene.scale.set(10, 10, 2);
         scene.add(gltf.scene);
 
-        camera.current.position.set(0, 16.5, 1);
+        if (camera.current) {
+          camera.current.position.set(0, 0, 0);
+        }
 
         mixer.current = new THREE.AnimationMixer(gltf.scene);
         const clips = gltf.animations;
@@ -84,11 +87,12 @@ const ThreeScene: React.FC = () => {
       }
 
       // Adjust camera position based on scroll progress
-      if (camera.current) {
-        camera.current.position.z = 1 + scrollProgress.current * 7; // Zoom out gradually
-        camera.current.position.y = 16.5 - scrollProgress.current * 5; // Move up gradually
-        // camera.current.rotation.y = -Math.PI / 2 + scrollProgress * Math.PI / 4; // Rotate left gradually
-      }
+      // if (camera.current) {
+      //   camera.current.position.z = 1 + scrollProgress.current * 7; // Zoom out gradually
+      //   camera.current.position.y = 16.5 - scrollProgress.current * 5; // Move up gradually
+        
+      //   // camera.current.rotation.y = -Math.PI / 2 + scrollProgress * Math.PI / 4; // Rotate left gradually
+      // }
     };
 
     const animate = () => {

@@ -16,6 +16,9 @@ const config = {
       },
     },
     extend: {
+      height: {
+        screen: ['100vh', '100dvh'],
+      },
       fontSize: {
         xx: '12rem',
       },
