@@ -17,8 +17,9 @@ const config = {
     },
     extend: {
       height: {
+        // @ts-ignore
         screen: ['100vh', '100dvh'],
-      },
+      },
       fontSize: {
         xx: '12rem',
       },
