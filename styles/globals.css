@@ -70,6 +70,13 @@
   }
 }
 
+.cal {
+  font-family: 'Cal Sans';
+}
+.europa {
+  font-family: 'EuropaGroteskSH', sans-serif;
+}
+
 h1 {
   font-family: EuropaGroteskSH, sans-serif;
   @apply text-5xl font-extrabold tracking-tight transition-all duration-700 sm:text-6xl md:text-7xl lg:text-8xl;

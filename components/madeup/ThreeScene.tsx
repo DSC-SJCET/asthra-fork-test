@@ -18,7 +18,6 @@ const ThreeScene: React.FC = () => {
   const light2 = useRef<THREE.PointLight>();
   const light3 = useRef<THREE.DirectionalLight>();
   const scrollProgress = useRef<number>(0); // Store the scroll progress
-  const previousScroll = useRef<number>(0); // Store the previous scroll position2
 
   useEffect(() => {
     if (!containerRef.current) return;
