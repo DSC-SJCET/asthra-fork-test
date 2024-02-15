@@ -71,8 +71,6 @@
 // };
 
 // export default ScrollVideo;
-
-
 import React, { useEffect, useRef } from 'react';
 
 interface ScrollVideoProps {
@@ -96,15 +94,15 @@ const ScrollVideo: React.FC<ScrollVideoProps> = ({ src }) => {
     // Pause video on document scroll (stops autoplay once scroll started)
     window.addEventListener('scroll', handleScroll);
 
-    function handleScroll() {
+    async function handleScroll() {
       if (vid) {
-        playVideoForTwoSeconds();
+        await playVideoForTwoSeconds();
       }
     }
 
     // Function to play video for 2 seconds
-    function playVideoForTwoSeconds() {
-      vid.play();
+    async function playVideoForTwoSeconds() {
+      await vid.play();
       setTimeout(() => {
         vid.pause();
       }, 3000); // 2000 milliseconds = 2 seconds

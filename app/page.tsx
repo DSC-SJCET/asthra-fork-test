@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 import { CursorContainer } from '~/components/madeup/cursor';
 import { Fog } from '~/components/madeup/grid-background';
-import Use100vhScroll from '~/components/madeup/scroll-page-size';
-import ScrollVideo from '~/components/madeup/scroll-video';
+// import Use100vhScroll from '~/components/madeup/scroll-page-size';
+// import ScrollVideo from '~/components/madeup/scroll-video';
 import ThreeScene from '~/components/madeup/ThreeScene';
 
 export default function Home() {
