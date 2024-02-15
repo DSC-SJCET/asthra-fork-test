@@ -7,12 +7,23 @@ import React, { useEffect, useRef } from 'react';
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js"
+import { FilmPass } from "three/addons/postprocessing/FilmPass.js"
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js"
+import { BloomPass } from "three/addons/postprocessing/BloomPass.js"
+import { UnrealBloomPass  } from "three/addons/postprocessing/UnrealBloomPass.js"
 
 const ThreeScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mixer = useRef<THREE.AnimationMixer | null>(null);
   const camera = useRef<THREE.PerspectiveCamera>();
   const renderer = useRef<THREE.WebGLRenderer>();
+  const composer = useRef<EffectComposer>();
+  const renderPass = useRef<RenderPass>();
+  const filmPass = useRef<FilmPass>();
+  const bloomPass = useRef<UnrealBloomPass>();
+  const outputPass = useRef<OutputPass>();
   const ambientLight = useRef<THREE.AmbientLight>();
   const light1 = useRef<THREE.PointLight>();
   const light2 = useRef<THREE.PointLight>();
@@ -29,6 +40,19 @@ const ThreeScene: React.FC = () => {
     renderer.current.setClearColor(0x000000, 0);
     renderer.current.setSize(window.innerWidth, window.innerHeight);
     containerRef.current.appendChild(renderer.current.domElement);
+
+    composer.current = new EffectComposer(renderer.current);
+    renderPass.current = new RenderPass(scene, camera.current);
+    composer.current.addPass(renderPass.current);
+
+    filmPass.current = new FilmPass();
+    composer.current.addPass(filmPass.current);
+
+    bloomPass.current = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.25, 0.1, 0.1)
+    composer.current.addPass(bloomPass.current);
+
+    outputPass.current = new OutputPass();
+    composer.current.addPass(outputPass.current);
 
     ambientLight.current = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight.current);
@@ -53,7 +77,7 @@ const ThreeScene: React.FC = () => {
         gltf.scene.scale.set(10, 10, 2);
         scene.add(gltf.scene);
 
-        camera.current.position.set(0, 16.5, 1);
+        camera.current?.position.set(0, 16.5, 1);
 
         mixer.current = new THREE.AnimationMixer(gltf.scene);
         const clips = gltf.animations;
@@ -95,7 +119,7 @@ const ThreeScene: React.FC = () => {
     const animate = () => {
       requestAnimationFrame(animate);
       if (mixer.current) mixer.current.update(0.01);
-      if (renderer.current && scene && camera.current) renderer.current.render(scene, camera.current);
+      if (composer.current && scene && camera.current) composer.current.render();
     };
 
     animate();
@@ -104,7 +128,7 @@ const ThreeScene: React.FC = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      containerRef.current?.removeChild(renderer.current.domElement);
+      if(renderer.current) containerRef.current?.removeChild(renderer.current.domElement);
     };
   }, []);
 
