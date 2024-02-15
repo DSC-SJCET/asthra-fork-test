@@ -7,12 +7,11 @@ import React, { useEffect, useRef } from 'react';
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js"
-import { FilmPass } from "three/addons/postprocessing/FilmPass.js"
-import { OutputPass } from "three/addons/postprocessing/OutputPass.js"
-import { BloomPass } from "three/addons/postprocessing/BloomPass.js"
-import { UnrealBloomPass  } from "three/addons/postprocessing/UnrealBloomPass.js"
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 const ThreeScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,36 +47,36 @@ const ThreeScene: React.FC = () => {
     filmPass.current = new FilmPass();
     composer.current.addPass(filmPass.current);
 
-    bloomPass.current = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.25, 0.1, 0.1)
+    bloomPass.current = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.25, 0.1, 0.1);
     composer.current.addPass(bloomPass.current);
 
     outputPass.current = new OutputPass();
     composer.current.addPass(outputPass.current);
 
-    ambientLight.current = new THREE.AmbientLight(0xffffff, 0.5);
+    ambientLight.current = new THREE.AmbientLight(0xffffff, 1.5);
     scene.add(ambientLight.current);
 
-    light1.current = new THREE.PointLight(0xffffff, 0.1);
+    light1.current = new THREE.PointLight(0x853932, 0.1);
     light1.current.position.set(2.5, 5.5, 2.5);
     scene.add(light1.current);
 
-    light2.current = new THREE.PointLight(0xffffff, 0.1);
+    light2.current = new THREE.PointLight(0x853932, 0.1);
     light2.current.position.set(2.5, 2.5, -2.5);
     scene.add(light2.current);
 
-    light3.current = new THREE.DirectionalLight(0xffffff, 10);
+    light3.current = new THREE.DirectionalLight(0x853932, 10);
     light3.current.position.set(-2.5, 10.5, 2);
     scene.add(light3.current);
 
     const gltfloader = new GLTFLoader();
 
     gltfloader.load(
-      '/model1.glb',
+      '/model4.glb',
       (gltf) => {
         gltf.scene.scale.set(10, 10, 2);
         scene.add(gltf.scene);
 
-        camera.current.position.set(0, 0, 0);
+        camera.current?.position.set(0, 0, 0);
 
         mixer.current = new THREE.AnimationMixer(gltf.scene);
         const clips = gltf.animations;
@@ -112,7 +111,7 @@ const ThreeScene: React.FC = () => {
       // if (camera.current) {
       //   camera.current.position.z = 1 + scrollProgress.current * 7; // Zoom out gradually
       //   camera.current.position.y = 16.5 - scrollProgress.current * 5; // Move up gradually
-        
+
       //   // camera.current.rotation.y = -Math.PI / 2 + scrollProgress * Math.PI / 4; // Rotate left gradually
       // }
     };
@@ -129,7 +128,7 @@ const ThreeScene: React.FC = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if(renderer.current) containerRef.current?.removeChild(renderer.current.domElement);
+      if (renderer.current) containerRef.current?.removeChild(renderer.current.domElement);
     };
   }, []);
 
