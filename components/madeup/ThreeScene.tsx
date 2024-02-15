@@ -17,6 +17,9 @@ const ThreeScene: React.FC = () => {
   const light1 = useRef<THREE.PointLight>();
   const light2 = useRef<THREE.PointLight>();
   const light3 = useRef<THREE.DirectionalLight>();
+  const scrollDirection = useRef<number>(1); // 1 for down, -1 for up
+  const previousScroll = useRef<number>(0);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -65,10 +68,19 @@ const ThreeScene: React.FC = () => {
     );
 
     const handleScroll = () => {
+      // Clear previous timeout
+      if (scrollTimeout.current !== null) {
+        clearTimeout(scrollTimeout.current);
+      }
+
       // Calculate scroll progress
       const maxScroll = document.body.clientHeight - window.innerHeight;
       const currentScroll = window.scrollY;
       const scrollProgress = currentScroll / maxScroll;
+
+      // Determine scroll direction
+      scrollDirection.current = currentScroll > previousScroll.current ? 1 : -1;
+      previousScroll.current = currentScroll;
 
       // Adjust camera position based on scroll progress
       if (camera.current) {
@@ -76,6 +88,18 @@ const ThreeScene: React.FC = () => {
         camera.current.position.y = 16.5 - scrollProgress * 5; // Move up gradually
         // camera.current.rotation.y = -Math.PI / 2 + scrollProgress * Math.PI / 4; // Rotate left gradually
       }
+
+      // Update animation speed based on scroll direction
+      if (mixer.current) {
+        mixer.current.timeScale = scrollDirection.current;
+      }
+
+      // Set timeout to stop animation after scrolling stops
+      scrollTimeout.current = setTimeout(() => {
+        if (mixer.current) {
+          mixer.current.timeScale = 0; // Pause animation
+        }
+      }, 200); // Adjust the time interval as needed
     };
 
     const animate = () => {
