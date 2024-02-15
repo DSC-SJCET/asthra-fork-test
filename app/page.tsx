@@ -15,7 +15,7 @@ export default function Home() {
       {/* <Use100vhScroll> */}
       <>
         {/* <ScrollVideo src="/vedio.mp4" /> */}
-        <ThreeScene/>
+        <ThreeScene />
         <Image
           className="object-contain fixed top-0 xl:top-10 left-5 xl:left-10 w-20 h-20"
           src="/logo.png"
@@ -25,16 +25,14 @@ export default function Home() {
           loading="eager"
           alt=""
         />
-        <CursorContainer varient="text">
-          <div className="mx-auto py-20 h-screen w-screen relative flex justify-center overflow-hidden">
-            <Fog />
-            <h1 className="mt-10 text-6xl  xl:text-xx text-center -z-10">ASTHRA 8.0</h1>
-            <div className="flex flex-col xl:flex-row justify-between items-center max-w-screen-lg mx-auto absolute top-10">
-              <p className="w-[300px]">NATIONAL LEVEL TECHNICAL FEST 2024</p>
-              <p>ST JOSEPHS COLLEGE OF ENGINEERING</p>
-            </div>
+        <div className="mx-auto py-20 h-screen w-screen relative flex justify-center overflow-hidden">
+          <Fog />
+          <h1 className="mt-10 text-6xl  xl:text-xx text-center -z-10">ASTHRA 8.0</h1>
+          <div className="flex flex-col xl:flex-row justify-between items-center max-w-screen-lg mx-auto absolute top-10">
+            <p className="w-[300px]">NATIONAL LEVEL TECHNICAL FEST 2024</p>
+            <p>ST JOSEPHS COLLEGE OF ENGINEERING</p>
           </div>
-        </CursorContainer>
+        </div>
         <div className="mx-auto max-w-screen-xl py-20 h-screen relative flex justify-start items-center align-middle">
           {/* <Image className="object-contain ml-[-100px]" src="/robot2.png" width="800" height="200" quality="100" loading="eager" alt="" /> */}
           <h3 className="text-white font-light">

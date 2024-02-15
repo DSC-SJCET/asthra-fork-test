@@ -10,16 +10,15 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const ThreeScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mixer = useRef<THREE.AnimationMixer>();
+  const mixer = useRef<THREE.AnimationMixer | null>(null);
   const camera = useRef<THREE.PerspectiveCamera>();
   const renderer = useRef<THREE.WebGLRenderer>();
   const ambientLight = useRef<THREE.AmbientLight>();
   const light1 = useRef<THREE.PointLight>();
   const light2 = useRef<THREE.PointLight>();
   const light3 = useRef<THREE.DirectionalLight>();
-  const scrollDirection = useRef<number>(1); // 1 for down, -1 for up
-  const previousScroll = useRef<number>(0);
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const scrollProgress = useRef<number>(0); // Store the scroll progress
+  const previousScroll = useRef<number>(0); // Store the previous scroll position2
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -57,8 +56,15 @@ const ThreeScene: React.FC = () => {
         camera.current.position.set(0, 16.5, 1);
 
         mixer.current = new THREE.AnimationMixer(gltf.scene);
-        gltf.animations.forEach((clip) => {
-          mixer.current.clipAction(clip).play();
+        const clips = gltf.animations;
+        const totalFrames = 300; // Total frames in the animation
+        const animationDuration = 1.0; // Duration of the animation in seconds
+        const clipDuration = animationDuration / totalFrames;
+
+        clips.forEach((clip) => {
+          const action = mixer.current?.clipAction(clip);
+          action?.setDuration(clipDuration); // Set the duration of each clip
+          action?.play();
         });
       },
       undefined,
@@ -68,38 +74,22 @@ const ThreeScene: React.FC = () => {
     );
 
     const handleScroll = () => {
-      // Clear previous timeout
-      if (scrollTimeout.current !== null) {
-        clearTimeout(scrollTimeout.current);
-      }
-
-      // Calculate scroll progress
-      const maxScroll = document.body.clientHeight - window.innerHeight;
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       const currentScroll = window.scrollY;
-      const scrollProgress = currentScroll / maxScroll;
+      scrollProgress.current = currentScroll / totalHeight;
 
-      // Determine scroll direction
-      scrollDirection.current = currentScroll > previousScroll.current ? 1 : -1;
-      previousScroll.current = currentScroll;
+      // Check if the mixer is initialized and sync the animation
+      if (mixer.current) {
+        const currentFrame = scrollProgress.current / 330; // Map scroll progress to animation frames
+        mixer.current.setTime(currentFrame);
+      }
 
       // Adjust camera position based on scroll progress
       if (camera.current) {
-        camera.current.position.z = 1 + scrollProgress * 7; // Zoom out gradually
-        camera.current.position.y = 16.5 - scrollProgress * 5; // Move up gradually
+        camera.current.position.z = 1 + scrollProgress.current * 7; // Zoom out gradually
+        camera.current.position.y = 16.5 - scrollProgress.current * 5; // Move up gradually
         // camera.current.rotation.y = -Math.PI / 2 + scrollProgress * Math.PI / 4; // Rotate left gradually
       }
-
-      // Update animation speed based on scroll direction
-      if (mixer.current) {
-        mixer.current.timeScale = scrollDirection.current;
-      }
-
-      // Set timeout to stop animation after scrolling stops
-      scrollTimeout.current = setTimeout(() => {
-        if (mixer.current) {
-          mixer.current.timeScale = 0; // Pause animation
-        }
-      }, 200); // Adjust the time interval as needed
     };
 
     const animate = () => {
@@ -118,7 +108,7 @@ const ThreeScene: React.FC = () => {
     };
   }, []);
 
-  return <div className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1]" ref={containerRef}></div>;
+  return <div className="fixed top-0 left-0 w-screen h-screen object-cover z-[-1] flex justify-center align-end" ref={containerRef}></div>;
 };
 
 export default ThreeScene;
