@@ -9,6 +9,8 @@ import { Cursor } from '~/components/madeup/cursor';
 import { Fog, GridContainer } from '~/components/madeup/grid-background';
 import { ThemeProvider } from '~/components/theme-provider';
 
+import { Footer } from "~/components/madeup/footer"
+
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
@@ -29,7 +31,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* <Toast /> */}
           <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" disableTransitionOnChange>
             {/* <Toaster richColors={true} position="top-center" /> */}
-            <TRPCReactProvider>{children}</TRPCReactProvider>
+            <TRPCReactProvider>
+            {children}
+            <Footer/>
+          </TRPCReactProvider>
           </ThemeProvider>
         {/* </GridContainer> */}
       </body>

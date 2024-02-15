@@ -67,6 +67,7 @@
   body {
     font-family: 'Cal Sans';
     @apply bg-background text-foreground;
+    /* cursor: none; */
   }
 }
 
@@ -79,7 +80,7 @@
 
 h1 {
   font-family: EuropaGroteskSH, sans-serif;
-  @apply text-5xl font-extrabold tracking-tight transition-all duration-700 sm:text-6xl md:text-7xl lg:text-8xl;
+  @apply text-5xl font-extrabold tracking-tight transition-all duration-700 sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl;
 }
 
 h2 {

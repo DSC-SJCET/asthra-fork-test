@@ -60,9 +60,7 @@ export const Cursor = () => {
   };
 
   return (
-    <motion.div className="cursor" 
-    // style={{ display: mousePosition.visible ? 'block' : 'none', }} 
-    variants={variants as Variants} animate={cursorVariant}>
+    <motion.div className="cursor"  variants={variants as Variants} animate={cursorVariant}>
       <MoveUpRight />
     </motion.div>
   );
