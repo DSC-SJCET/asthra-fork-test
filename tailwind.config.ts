@@ -16,6 +16,13 @@ const config = {
       },
     },
     extend: {
+      height: {
+        // @ts-ignore
+        screen: ['100vh', '100dvh'],
+      },
+      fontSize: {
+        xx: '12rem',
+      },
       backgroundImage: {
         'button-noise': "url('/button-bg.png')",
       },
@@ -203,6 +210,11 @@ function GridandDotBackgrounds({ matchUtilities, theme }) {
       'bg-grid-small': (value: string) => ({
         backgroundImage: `url("${svgToDataUri(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
+        )}")`,
+      }),
+      'bg-grid-lg': (value: string) => ({
+        backgroundImage: `url("${svgToDataUri(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="42" height="42" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
         )}")`,
       }),
       'bg-dot': (value: string) => ({

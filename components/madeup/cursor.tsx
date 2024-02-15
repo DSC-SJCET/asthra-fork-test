@@ -9,19 +9,25 @@ import { MoveUpRight } from 'lucide-react';
 import { CursorController, CursorVarient } from '~/lib/cursor-control';
 
 export const Cursor = () => {
-  const { varient: cursorVariant } = CursorController();
-  const [mousePosition, setMousePosition] = useState({ x: -150, y: -150 });
+  const { varient: cursorVariant, setVarient } = CursorController();
+  const [mousePosition, setMousePosition] = useState({ x: -150, y: -150, visible: true });
 
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
       setMousePosition({
+        visible: true,
         x: e.clientX,
         y: e.clientY,
       });
     };
 
     window.addEventListener('mousemove', mouseMove);
-
+    window.addEventListener('mouseenter', mouseMove);
+    // window.addEventListener('mousedown', () => setMousePosition({
+    //   x: -150,
+    //   y: -150,
+    //   visible:false
+    // }));
     return () => {
       window.removeEventListener('mousemove', mouseMove);
     };
